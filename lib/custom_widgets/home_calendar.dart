@@ -70,14 +70,14 @@ class CalendarBody extends StatefulWidget {
 
 class _CalendarBodyState extends State<CalendarBody>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
+  late AnimationController _checkAnimationController;
   late Animation<double> _animation;
   @override
   void initState() {
-    _animationController = AnimationController(
+    _checkAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 700));
     _animation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
-        parent: _animationController, curve: Curves.easeInOutCirc));
+        parent: _checkAnimationController, curve: Curves.easeInOutCirc));
     super.initState();
   }
 
@@ -98,7 +98,7 @@ class _CalendarBodyState extends State<CalendarBody>
           id: widget.id,
           dateTime: dateTime,
           onPressed: (String status) {
-            _animationController.reverse();
+            _checkAnimationController.reverse();
             Future.delayed(Duration(milliseconds: duration ~/ 8), () {
               ScaffoldMsg(cx: context, msg: status, dateTime: dateTime)
                   .showCustomFloating(
@@ -108,7 +108,7 @@ class _CalendarBodyState extends State<CalendarBody>
                       backgroundColor: MyColors.colorPrimary,
                       textStyle: const TextStyle(
                           color: MyColors.colorOnPrimary, fontSize: 16.0),
-                      animationController: _animationController,
+                      animationController: _checkAnimationController,
                       animation: _animation,
                       duration: Duration(milliseconds: duration));
             });
@@ -138,13 +138,13 @@ class _HomeCalendarControllerState extends State<HomeCalendarController> {
   bool _reverse = false;
   @override
   Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Btn1(
-            margin: 10.0,
+            // margin: 30.0,
             radius: 10.0,
-            elevation: 5.0,
-            shadowColor: Colors.black26,
+            elevation: 0.0,
+            shadowColor: Colors.transparent,
             backgroundColor: MyColors.colorOnPrimary,
             onPressed: () {
               setState(() {

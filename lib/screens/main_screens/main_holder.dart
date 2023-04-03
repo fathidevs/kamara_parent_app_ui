@@ -20,8 +20,8 @@ class _MainHolderState extends State<MainHolder> {
   Widget build(BuildContext context) {
     return SafeArea(
       /*
-             SafeArea widget is to pervent ListView items
-             in the childeren[] showing up in statusbar
+             SafeArea widget is to prevent ListView items
+             in the children[] showing up in statusbar
         */
       child: Stack(
         alignment: Alignment.topRight,
