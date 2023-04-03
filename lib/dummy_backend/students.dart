@@ -1,3 +1,5 @@
+import 'package:jiffy/jiffy.dart';
+
 import 'models/student_model.dart';
 
 class Students {
@@ -35,5 +37,18 @@ class Students {
 
   static Map<int, StudentModel> all() {
     return _make();
+  }
+
+  Map<String, double> account(double tuitionFee) {
+    int currentMonth = DateTime.now().month;
+    Map<String, double> paymentStatusMap = {};
+
+    for (int month = 1; month <= currentMonth; month++) {
+      String monthName = Jiffy("$month", "M").MMM.toLowerCase();
+      bool isPaid = month != id;
+      paymentStatusMap.addAll({monthName: isPaid ? tuitionFee : 0.00});
+    }
+
+    return paymentStatusMap;
   }
 }
