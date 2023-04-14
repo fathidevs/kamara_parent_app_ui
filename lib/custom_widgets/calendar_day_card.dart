@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kamara_parent_app_ui/vibrator.dart';
+import 'package:provider/provider.dart';
 
 import '../calendar_data/calendar.dart';
 import '../calendar_data/card_style.dart';
 import '../dummy_backend/attendance.dart';
+import '../notifier/picked_calendar_date.dart';
 import 'attendance_notifier_widget.dart';
 
 class CalendarDayCard extends StatefulWidget {
@@ -11,12 +13,19 @@ class CalendarDayCard extends StatefulWidget {
   final Function onPressed;
   final BorderRadius radius;
   final int id;
+  final bool isFutureFeedback;
+  final FontWeight fontWeight;
+
   const CalendarDayCard({
     Key? key,
     required this.dateTime,
-    required this.onPressed,
+    required this.onPressed(Map<DateTime, String> status),
     required this.id,
-    this.radius = const BorderRadius.all(Radius.circular(8.0)),
+    this.radius = const BorderRadius.all(
+      Radius.circular(8.0),
+    ),
+    this.isFutureFeedback = true,
+    this.fontWeight = FontWeight.normal,
   }) : super(key: key);
 
   @override
@@ -35,6 +44,7 @@ class CalendarDayCardState extends State<CalendarDayCard> {
     bool isPastMonth = Calendar.isPastMonth(widget.dateTime);
     bool isNextMonth = Calendar.isNextMonth(widget.dateTime);
     bool isPastYear = Calendar.isPastYear(widget.dateTime);
+
     CardStyle style = CardStyle(
       isToday: isTody,
       isPastDay: isPastDay,
@@ -42,11 +52,17 @@ class CalendarDayCardState extends State<CalendarDayCard> {
       isNextMonth: isNextMonth,
       isPastYear: isPastYear,
     );
-    String status = Attendance(
+    String attendance = Attendance(
       id: widget.id,
       month: widget.dateTime.month,
       year: widget.dateTime.year,
-    ).generateAttendance1()[widget.dateTime]!;
+    ).generateAttendance()[widget.dateTime]!;
+
+    Map<DateTime, String> status = {widget.dateTime: attendance};
+    PickedCalendarDate pickedDate(bool listen) {
+      return Provider.of<PickedCalendarDate>(context, listen: listen);
+    }
+
     return Card(
       elevation: style.elevation(),
       shadowColor: CardStyle.shadowColor(),
@@ -54,9 +70,14 @@ class CalendarDayCardState extends State<CalendarDayCard> {
       shape: style.shape(widget.radius),
       child: InkWell(
         borderRadius: widget.radius,
-        onTap: () => Calendar.isPast(widget.dateTime)
-            ? widget.onPressed(status)
-            : Vibrator.vibrate(),
+        onTap: () {
+          if (widget.isFutureFeedback && Calendar.isFuture(widget.dateTime)) {
+            Vibrator.vibrate();
+          } else {
+            pickedDate(false).changeDate(widget.dateTime);
+            widget.onPressed(status);
+          }
+        },
         child: Container(
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * .1,
@@ -68,7 +89,7 @@ class CalendarDayCardState extends State<CalendarDayCard> {
                   children: [
                     Text(
                       widget.dateTime.day.toString().padLeft(2, '0'),
-                      style: style.textStyle(),
+                      style: style.textStyle(widget.fontWeight),
                       textAlign: TextAlign.center,
                     ),
                     AttendanceNotifierWidget(
@@ -77,13 +98,13 @@ class CalendarDayCardState extends State<CalendarDayCard> {
                               id: widget.id,
                               month: widget.dateTime.month,
                               year: widget.dateTime.year)
-                          .generateAttendance1()[widget.dateTime]!,
+                          .generateAttendance()[widget.dateTime]!,
                     )
                   ],
                 )
               : Text(
                   widget.dateTime.day.toString().padLeft(2, '0'),
-                  style: style.textStyle(),
+                  style: style.textStyle(widget.fontWeight),
                   textAlign: TextAlign.center,
                 ),
         ),

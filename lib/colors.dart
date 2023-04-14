@@ -24,4 +24,7 @@ class MyColors {
   static const Color visacardColor = Color(0xFF1A1F71);
 
   static const Color colorEbirr = Color(0XFF0c8744);
+
+  static const Color bsdShadow = Colors.black12;
+  static const Color cardShadow = Colors.black12;
 }

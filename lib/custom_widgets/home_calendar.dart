@@ -3,8 +3,12 @@ import 'package:icon_animated/animated_icons.dart';
 import 'package:kamara_parent_app_ui/calendar_data/calendar.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/btn1.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/calendar_day_card.dart';
+import 'package:kamara_parent_app_ui/custom_widgets/page_navigator.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/scaff_msg.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/txt_icon_anim1.dart';
+import 'package:kamara_parent_app_ui/notifier/picked_calendar_date.dart';
+import 'package:kamara_parent_app_ui/screens/calendar_full.dart';
+import 'package:provider/provider.dart';
 
 import '../colors.dart';
 
@@ -91,19 +95,27 @@ class _CalendarBodyState extends State<CalendarBody>
     int lw = widget.lastWeek ? 7 : 0;
 
     List<Widget> l = List.generate(7, (i) {
-      DateTime dateTime = Calendar.nowNt().add(Duration(days: (i - wd) - lw));
+      DateTime generatedDateTime =
+          Calendar.nowNt().add(Duration(days: (i - wd) - lw));
 
       return Expanded(
         child: CalendarDayCard(
+          fontWeight: Calendar.nowNt() == generatedDateTime
+              ? FontWeight.w900
+              : FontWeight.normal,
           id: widget.id,
-          dateTime: dateTime,
-          onPressed: (String status) {
+          dateTime: generatedDateTime,
+          onPressed: (Map<DateTime, String> status) {
             _checkAnimationController.reverse();
             Future.delayed(Duration(milliseconds: duration ~/ 8), () {
-              ScaffoldMsg(cx: context, msg: status, dateTime: dateTime)
+              ScaffoldMsg(
+                      cx: context,
+                      msg: status[generatedDateTime]!,
+                      dateTime: generatedDateTime)
                   .showCustomFloating(
-                      iconType:
-                          status.contains("p") ? IconType.check : IconType.fail,
+                      iconType: status[generatedDateTime]!.contains("p")
+                          ? IconType.check
+                          : IconType.fail,
                       shadowColor: MyColors.colorPrimary.withOpacity(0.3),
                       backgroundColor: MyColors.colorPrimary,
                       textStyle: const TextStyle(
@@ -165,7 +177,11 @@ class _HomeCalendarControllerState extends State<HomeCalendarController> {
             radius: 10.0,
             elevation: 5.0,
             shadowColor: Colors.black26,
-            onPressed: () {},
+            onPressed: () {
+              PageNavigator(cx: context, navigateTo: const CalendarFull()).go();
+              Provider.of<PickedCalendarDate>(context, listen: false)
+                  .changeDate(Calendar.nowNt());
+            },
             child: const Text("More"),
           ),
         ],

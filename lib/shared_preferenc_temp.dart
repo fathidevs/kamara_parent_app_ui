@@ -1,4 +1,3 @@
-import 'package:kamara_parent_app_ui/dummy_backend/models/attendance_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Sp {

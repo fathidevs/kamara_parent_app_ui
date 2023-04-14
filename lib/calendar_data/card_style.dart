@@ -28,7 +28,7 @@ class CardStyle {
     if (isToday) {
       return RoundedRectangleBorder(
           borderRadius: radius,
-          side: BorderSide(
+          side: const BorderSide(
             color: MyColors.colorPrimary,
             width: 1.5,
           ));
@@ -55,20 +55,29 @@ class CardStyle {
     return Colors.white;
   }
 
-  TextStyle textStyle() {
+  TextStyle textStyle(FontWeight fontWeightx) {
     if (isPastDay) {
-      return const TextStyle(color: MyColors.colorOnPrimary);
+      return TextStyle(
+        color: MyColors.colorOnPrimary,
+        fontWeight: fontWeightx,
+      );
     }
     if (isToday) {
-      return const TextStyle(
-          color: MyColors.colorPrimary,
-          fontWeight: FontWeight.w900,
-          fontSize: 15.0);
+      return TextStyle(
+        color: MyColors.colorPrimary,
+        fontWeight: fontWeightx,
+        fontSize: 15.0,
+      );
     }
     if (isPastYear || isPastMonth) {
-      return const TextStyle(color: MyColors.dissabledTextColr);
+      return TextStyle(
+          color: MyColors.dissabledTextColr, fontWeight: fontWeightx);
+    }
+    if (isNextMonth) {
+      return TextStyle(
+          color: MyColors.dissabledTextColr, fontWeight: fontWeightx);
     }
 
-    return const TextStyle(color: Colors.black87);
+    return TextStyle(color: Colors.black87, fontWeight: fontWeightx);
   }
 }

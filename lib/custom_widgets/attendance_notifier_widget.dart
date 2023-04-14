@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kamara_parent_app_ui/calendar_data/calendar.dart';
 
-import '../dummy_backend/attendance.dart';
-import '../dummy_backend/models/attendance_model.dart';
-
 class AttendanceNotifierWidget extends StatelessWidget {
   final String status;
   final DateTime dateTime;
@@ -33,12 +30,6 @@ class AttendanceNotifierWidget extends StatelessWidget {
     }
 
     return Colors.transparent;
-  }
-
-  bool _showNotifier() {
-    bool notify =
-        Calendar.isNextMonth(dateTime) || Calendar.isPastMonth(dateTime);
-    return notify;
   }
 
   @override

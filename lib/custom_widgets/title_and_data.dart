@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kamara_parent_app_ui/tools.dart';
 
 class TitleAndData extends StatelessWidget {
   final String title;
@@ -67,12 +68,6 @@ class TitleAndData extends StatelessWidget {
     }
 
     return title;
-  }
-}
-
-extension ListExtension<Widget> on List<Widget> {
-  List<Widget> reverse(bool condition) {
-    return condition ? reversed.toList() : this;
   }
 }
 

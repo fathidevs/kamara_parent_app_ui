@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kamara_parent_app_ui/notifier/picked_calendar_date.dart';
+import 'package:kamara_parent_app_ui/notifier/picked_calendar_type_notifier.dart';
 import 'package:kamara_parent_app_ui/notifier/picked_child_id_notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,12 @@ void main() {
       ChangeNotifierProvider(
         create: (_) => PickedChildIdNotifier(),
       ),
+      ChangeNotifierProvider(
+        create: (_) => PickedCalendarTypeNotifier(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => PickedCalendarDate(),
+      )
     ],
     child: const KamaraParentApp(),
   ));

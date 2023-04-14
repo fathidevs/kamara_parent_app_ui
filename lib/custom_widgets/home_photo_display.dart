@@ -32,15 +32,16 @@ class _HomePhotoDisplayState extends State<HomePhotoDisplay> {
               img: widget.img,
             ),
           ),
-          TxtIConBtn1(
-              onPressed: widget.onPressed,
-              icon: Icon(
-                Icons.arrow_drop_up_rounded,
-                color: widget.btnColor,
-                size: 22.0,
-              ),
-              label: Text(_nameOptimizer(widget.name),
-                  style: TextStyle(color: widget.btnColor, fontSize: 14.0)))
+          TxtIconBtn(
+            onPressed: widget.onPressed,
+            icon: Icon(
+              Icons.arrow_drop_up_rounded,
+              color: widget.btnColor,
+              size: 22.0,
+            ),
+            label: Text(_nameOptimizer(widget.name),
+                style: TextStyle(color: widget.btnColor, fontSize: 14.0)),
+          ).noSplash(reversed: true)
         ],
       );
 }

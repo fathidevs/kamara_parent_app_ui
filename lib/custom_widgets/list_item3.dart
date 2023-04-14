@@ -67,21 +67,21 @@ class _ListItem3State extends State<ListItem3> {
                       style: const TextStyle(color: Colors.red, fontSize: 11),
                     ),
                   ),
-                  TxtIConBtn1(
-                      // padding: const EdgeInsets.only(right: 20.0, top: 10.0),
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.keyboard_arrow_right_rounded,
+                  TxtIconBtn(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.keyboard_arrow_right_rounded,
+                      color: MyColors.colorPrimary,
+                    ),
+                    label: const Text(
+                      "view all",
+                      style: TextStyle(
                         color: MyColors.colorPrimary,
+                        fontWeight: FontWeight.bold,
+                        // fontSize: 15.0,
                       ),
-                      label: const Text(
-                        "view all",
-                        style: TextStyle(
-                          color: MyColors.colorPrimary,
-                          fontWeight: FontWeight.bold,
-                          // fontSize: 15.0,
-                        ),
-                      )),
+                    ),
+                  ).noSplash(reversed: true),
                 ],
               ),
             )

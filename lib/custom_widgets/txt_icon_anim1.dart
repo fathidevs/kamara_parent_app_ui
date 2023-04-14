@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kamara_parent_app_ui/colors.dart';
+import 'package:kamara_parent_app_ui/tools.dart';
 
 class TxtIconAnim1 extends StatefulWidget {
   final EdgeInsets padding;
@@ -64,11 +65,5 @@ class _TxtIconBtn2SAnim1 extends State<TxtIconAnim1> {
         ].reverse(widget.reverse),
       ),
     );
-  }
-}
-
-extension ListExtension<Widget> on List<Widget> {
-  List<Widget> reverse(bool condition) {
-    return condition ? reversed.toList() : this;
   }
 }

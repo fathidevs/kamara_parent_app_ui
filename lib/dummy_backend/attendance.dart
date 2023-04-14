@@ -12,17 +12,17 @@ class Attendance {
   });
 
   int daysInMonth() => Jiffy(DateTime(year, month, 1)).daysInMonth;
-  Map<DateTime, String> generateAttendance1() {
+  Map<DateTime, String> generateAttendance() {
     final Map<DateTime, String> records = {};
     String status = "present";
     for (int day = 1; day <= daysInMonth(); day++) {
-      if (absent(day)) {
+      if (_absent(day)) {
         status = "absent";
       }
-      if (late(day)) {
+      if (_late(day)) {
         status = "late";
       }
-      if (leave(day)) {
+      if (_leave(day)) {
         status = "leave";
       }
       records.putIfAbsent(DateTime(year, month, day), () => status);
@@ -32,18 +32,18 @@ class Attendance {
     return records;
   }
 
-  bool absent(int day) {
+  bool _absent(int day) {
     int age = Students.all()[id]!.age;
     return [month + age + 5, month + age + 10, month + age + 13]
         .any((element) => element == day);
   }
 
-  bool late(int day) {
+  bool _late(int day) {
     int age = Students.all()[id]!.age;
     return [month + age + 1, month + age + 6].any((element) => element == day);
   }
 
-  bool leave(int day) {
+  bool _leave(int day) {
     int age = Students.all()[id]!.age;
     return [month + age + 15].any((element) => element == day);
   }

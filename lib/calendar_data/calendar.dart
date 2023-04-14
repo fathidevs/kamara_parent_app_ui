@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 
 class Calendar {
-  static DateTime now = DateTime(2023, 1, 6);
+  static DateTime now = DateTime.now();
   static int lastDayOfTheMonth = Jiffy(now).daysInMonth;
 
   static List<DateTime> currentMonth() => List.generate(
