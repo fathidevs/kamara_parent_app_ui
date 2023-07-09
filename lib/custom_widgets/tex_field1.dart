@@ -43,7 +43,7 @@ class _TextField1State extends State<TextField1> {
             borderRadius: BorderRadius.circular(widget.radius),
             color: widget.colorBackground,
             boxShadow: [
-              Shadows.textField1(),
+              Shadows.elevatedTextField(),
             ]),
         child: TextField(
           controller: widget.textCtrl,

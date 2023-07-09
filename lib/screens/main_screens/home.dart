@@ -30,6 +30,7 @@ class _HomeState extends State<Home> {
       },
       child: CustomScrollView(
         // physics: const BouncingScrollPhysics(),
+
         controller: _ctrl,
         slivers: [
           SliverAppBar(

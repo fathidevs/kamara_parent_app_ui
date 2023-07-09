@@ -98,7 +98,7 @@ List<Widget> homeList(int id) => [
             : "",
       ),
       const Divider(
-        height: 25.0,
+        height: 130.0,
         color: Colors.transparent,
       ),
     ];

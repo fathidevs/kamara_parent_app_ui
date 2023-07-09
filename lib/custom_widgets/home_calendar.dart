@@ -6,7 +6,7 @@ import 'package:kamara_parent_app_ui/custom_widgets/calendar_day_card.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/page_navigator.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/scaff_msg.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/txt_icon_anim1.dart';
-import 'package:kamara_parent_app_ui/notifier/picked_calendar_date.dart';
+import 'package:kamara_parent_app_ui/notifier/picked_calendar_date_notifier.dart';
 import 'package:kamara_parent_app_ui/screens/calendar_full.dart';
 import 'package:provider/provider.dart';
 
@@ -179,7 +179,7 @@ class _HomeCalendarControllerState extends State<HomeCalendarController> {
             shadowColor: Colors.black26,
             onPressed: () {
               PageNavigator(cx: context, navigateTo: const CalendarFull()).go();
-              Provider.of<PickedCalendarDate>(context, listen: false)
+              Provider.of<PickedCalendarDateNotifier>(context, listen: false)
                   .changeDate(Calendar.nowNt());
             },
             child: const Text("More"),

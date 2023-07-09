@@ -49,35 +49,35 @@ class CardStyle {
       return Colors.transparent;
     }
     if (isPastYear || isPastMonth) {
-      return MyColors.dissabledBgColr;
+      return MyColors.disabledBgColor;
     }
 
     return Colors.white;
   }
 
-  TextStyle textStyle(FontWeight fontWeightx) {
+  TextStyle textStyle(FontWeight fontWeightX) {
     if (isPastDay) {
       return TextStyle(
         color: MyColors.colorOnPrimary,
-        fontWeight: fontWeightx,
+        fontWeight: fontWeightX,
       );
     }
     if (isToday) {
       return TextStyle(
         color: MyColors.colorPrimary,
-        fontWeight: fontWeightx,
+        fontWeight: fontWeightX,
         fontSize: 15.0,
       );
     }
     if (isPastYear || isPastMonth) {
       return TextStyle(
-          color: MyColors.dissabledTextColr, fontWeight: fontWeightx);
+          color: MyColors.disabledTextColor, fontWeight: fontWeightX);
     }
     if (isNextMonth) {
       return TextStyle(
-          color: MyColors.dissabledTextColr, fontWeight: fontWeightx);
+          color: MyColors.disabledTextColor, fontWeight: fontWeightX);
     }
 
-    return TextStyle(color: Colors.black87, fontWeight: fontWeightx);
+    return TextStyle(color: Colors.black87, fontWeight: fontWeightX);
   }
 }

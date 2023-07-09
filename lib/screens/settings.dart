@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Shadows {
-  static BoxShadow textField1() {
+  static BoxShadow elevatedTextField() {
     return const BoxShadow(
-        color: Colors.black12, spreadRadius: 0.1, blurRadius: 10.5);
+        color: Colors.black12, spreadRadius: 0.1, blurRadius: 10.0);
   }
 
   static BoxShadow bsd() {
@@ -14,6 +14,11 @@ class Shadows {
   static BoxShadow mainImgThumbnail() {
     return const BoxShadow(
         color: Colors.black12, spreadRadius: 0.1, blurRadius: 5.5);
+  }
+
+  static BoxShadow mainNavigationBar() {
+    return const BoxShadow(
+        color: Colors.black12, spreadRadius: 0.1, blurRadius: 15.0);
   }
 }
 

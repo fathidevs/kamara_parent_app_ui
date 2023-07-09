@@ -41,6 +41,8 @@ class _CalendarNavigatorState extends State<CalendarNavigator> {
           ),
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               dateTime.year.toString(),

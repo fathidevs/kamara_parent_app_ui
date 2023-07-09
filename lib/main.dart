@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kamara_parent_app_ui/notifier/picked_calendar_date.dart';
+import 'package:kamara_parent_app_ui/notifier/main_current_page_index_notifier.dart';
+import 'package:kamara_parent_app_ui/notifier/picked_calendar_date_notifier.dart';
 import 'package:kamara_parent_app_ui/notifier/picked_calendar_type_notifier.dart';
 import 'package:kamara_parent_app_ui/notifier/picked_child_id_notifier.dart';
 import 'package:provider/provider.dart';
@@ -20,8 +21,11 @@ void main() {
         create: (_) => PickedCalendarTypeNotifier(),
       ),
       ChangeNotifierProvider(
-        create: (_) => PickedCalendarDate(),
-      )
+        create: (_) => PickedCalendarDateNotifier(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => MainCurrentPageIndexNotifier(),
+      ),
     ],
     child: const KamaraParentApp(),
   ));
@@ -35,9 +39,11 @@ class KamaraParentApp extends StatefulWidget {
 }
 
 class _KamaraParentAppState extends State<KamaraParentApp> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     Init.app(context);
+    PageController pageController = PageController(initialPage: currentIndex);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: MyTheme.get(),
@@ -46,10 +52,31 @@ class _KamaraParentAppState extends State<KamaraParentApp> {
             future: Auth.check(),
             builder: (cx, snapshot) {
               if (snapshot.hasData && snapshot.data!) {
-                return const MainHolder();
+                return MainHolder(
+                  pageController: pageController,
+                  onPageChanged: (val) {
+                    setState(() {
+                      currentIndex = val;
+                    });
+                  },
+                );
               }
               return const Login();
             }),
+        // bottomNavigationBar: MainNavigationBar(
+        //   currentIndex: currentIndex,
+        //   onTap: (val) {
+        //     setState(() {
+        //       currentIndex = val;
+        //       pageController.jumpToPage(val);
+        //     });
+        //   },
+        //   buttons: [
+        //     FloatingNavbarItem(icon: Icons.home_rounded),
+        //     FloatingNavbarItem(icon: Icons.home_rounded),
+        //     FloatingNavbarItem(icon: Icons.home_rounded),
+        //   ],
+        // ),
       ),
     );
   }

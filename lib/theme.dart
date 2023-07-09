@@ -4,6 +4,7 @@ import 'package:kamara_parent_app_ui/colors.dart';
 class MyTheme {
   static ThemeData get() {
     return ThemeData(
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(),
       colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: MyColors.colorPrimary,
           onPrimary: MyColors.colorOnPrimary,

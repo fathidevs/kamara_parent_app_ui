@@ -4,53 +4,68 @@ import 'package:kamara_parent_app_ui/custom_widgets/bottom_sheet_dialog.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/icon_btn1.dart';
 
 import '../../custom_widgets/list_item2.dart';
+import '../../custom_widgets/main_navigation_bar.dart';
 import 'home.dart';
 import 'messages.dart';
 import 'profile.dart';
 
 class MainHolder extends StatefulWidget {
-  const MainHolder({Key? key}) : super(key: key);
+  final Function onPageChanged;
+  final PageController pageController;
+  const MainHolder({
+    Key? key,
+    required this.onPageChanged(int val),
+    required this.pageController,
+  }) : super(key: key);
 
   @override
   State<MainHolder> createState() => _MainHolderState();
 }
 
 class _MainHolderState extends State<MainHolder> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    PageController ctrl = PageController(initialPage: currentIndex);
     return SafeArea(
       /*
-             SafeArea widget is to prevent ListView items
-             in the children[] showing up in statusbar
-        */
+               SafeArea widget is to prevent ListView items
+               in the children[] showing up in statusbar
+          */
       child: Stack(
-        alignment: Alignment.topRight,
+        alignment: Alignment.topCenter,
         children: [
+          // page view
           NotificationListener<OverscrollIndicatorNotification>(
             onNotification: (overScroll) {
               overScroll.disallowIndicator();
               return true;
             },
             child: PageView(
+              onPageChanged: (int value) {
+                setState(() => currentIndex = value);
+              },
+              // controller: widget.pageController,
+              controller: ctrl,
+              scrollBehavior: const ScrollBehavior(),
               padEnds: false,
               pageSnapping: true,
               physics: const PageScrollPhysics(),
               children: _screens(),
             ),
           ),
+          // hamburger menu
           Padding(
             padding: const EdgeInsets.only(top: 20.0, right: 10.0),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconBtn1(
                   onPressed: () {
                     BottomSheetDialog(
                       cx: context,
-                      header: const DialogHeader(
-                              // padding: EdgeInsets.only(bottom: 0.0, top: 0.0),
-                              )
-                          .floatingPull(),
+                      header: const DialogHeader().floatingPull(),
                     ).regular(_mainNavMenu());
                   },
                   child: const Icon(
@@ -60,6 +75,16 @@ class _MainHolderState extends State<MainHolder> {
                   ),
                 ),
               ],
+            ),
+          ),
+          // bottom nav bar
+          Positioned(
+            bottom: 25.0,
+            child: MainNavBar2(
+              currentIndex: currentIndex,
+              onTap: (val) => ctrl.animateToPage(val,
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeInCubic),
             ),
           ),
         ],

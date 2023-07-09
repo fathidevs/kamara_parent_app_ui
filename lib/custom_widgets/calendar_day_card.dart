@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../calendar_data/calendar.dart';
 import '../calendar_data/card_style.dart';
 import '../dummy_backend/attendance.dart';
-import '../notifier/picked_calendar_date.dart';
+import '../notifier/picked_calendar_date_notifier.dart';
 import 'attendance_notifier_widget.dart';
 
 class CalendarDayCard extends StatefulWidget {
@@ -59,8 +59,8 @@ class CalendarDayCardState extends State<CalendarDayCard> {
     ).generateAttendance()[widget.dateTime]!;
 
     Map<DateTime, String> status = {widget.dateTime: attendance};
-    PickedCalendarDate pickedDate(bool listen) {
-      return Provider.of<PickedCalendarDate>(context, listen: listen);
+    PickedCalendarDateNotifier pickedDate(bool listen) {
+      return Provider.of<PickedCalendarDateNotifier>(context, listen: listen);
     }
 
     return Card(

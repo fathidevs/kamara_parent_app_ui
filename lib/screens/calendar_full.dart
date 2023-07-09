@@ -5,7 +5,7 @@ import 'package:kamara_parent_app_ui/colors.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/custom_app_bar.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/custom_expandable_widget.dart';
 import 'package:kamara_parent_app_ui/custom_widgets/txt_icon_btn1.dart';
-import 'package:kamara_parent_app_ui/notifier/picked_calendar_date.dart';
+import 'package:kamara_parent_app_ui/notifier/picked_calendar_date_notifier.dart';
 import 'package:kamara_parent_app_ui/notifier/picked_calendar_type_notifier.dart';
 import 'package:kamara_parent_app_ui/notifier/picked_child_id_notifier.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +53,7 @@ class CalendarFull extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: CustomAppBar(cx: context, title: "Calendar", actions: [
-          changeCalendarType(),
+          // changeCalendarType(),
         ]).flat(),
         body: const SafeArea(child: CalendarBody()),
         // bottomSheet: CalendarBottomSheet(dateTime: pickedDate(true).dateTime),
@@ -77,27 +77,36 @@ class _CalendarBodyState extends State<CalendarBody> {
   Widget build(BuildContext context) {
     int id = Provider.of<PickedChildIdNotifier>(context).id;
 
-    PickedCalendarDate pickedDate(bool listen) =>
-        Provider.of<PickedCalendarDate>(context, listen: listen);
+    PickedCalendarDateNotifier pickedDate(bool listen) =>
+        Provider.of<PickedCalendarDateNotifier>(context, listen: listen);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        CalendarNavigator(
-          onMonthChanged: (dateTime) {
-            setState(() => _dateTime = dateTime);
-            pickedDate(false).changeDate(dateTime);
-          },
-        ),
-        FullListOfDays(
-          id: id,
-          dateTime: _dateTime,
+        Expanded(
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .03,
+              ),
+              CalendarNavigator(
+                onMonthChanged: (dateTime) {
+                  setState(() => _dateTime = dateTime);
+                  pickedDate(false).changeDate(dateTime);
+                },
+              ),
+              FullListOfDays(
+                id: id,
+                dateTime: _dateTime,
+              ),
+            ],
+          ),
         ),
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.only(bottom: 10.0),
           child: CustomExpandableWidget(
-            maxHeight: MediaQuery.of(context).size.width * .55,
-            minHeight: MediaQuery.of(context).size.width * .2,
-            width: MediaQuery.of(context).size.width * .9,
+            maxHeight: MediaQuery.of(context).size.width * .3,
+            minHeight: MediaQuery.of(context).size.width * .1,
+            width: MediaQuery.of(context).size.width * .95,
             toggleChildVisibility: true,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

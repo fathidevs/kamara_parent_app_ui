@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kamara_parent_app_ui/notifier/picked_calendar_date.dart';
+import 'package:kamara_parent_app_ui/notifier/picked_calendar_date_notifier.dart';
 import 'package:provider/provider.dart';
 
 import 'calendar_day_card.dart';
@@ -17,7 +17,7 @@ class FullListOfDays extends StatefulWidget {
     required this.dateTime,
     this.xSpace = 3.0,
     this.ySpace = 3.0,
-    this.padding = const EdgeInsets.all(10.0),
+    this.padding = const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 5.0),
   }) : super(key: key);
 
   @override
@@ -34,7 +34,8 @@ class _FullListOfDaysState extends State<FullListOfDays> {
 
     DateTime dateTime =
         firstDayOfMonth.subtract(Duration(days: firstDayOfMonthPosition));
-    DateTime pickedDate = Provider.of<PickedCalendarDate>(context).dateTime;
+    DateTime pickedDate =
+        Provider.of<PickedCalendarDateNotifier>(context).dateTime;
 
     List<CalendarDayCard> listOfDays() {
       return List.generate(7 * 6, (dayCtr) {

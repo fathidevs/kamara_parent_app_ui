@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kamara_parent_app_ui/colors.dart';
 import 'package:kamara_parent_app_ui/dummy_backend/attendance.dart';
-import 'package:kamara_parent_app_ui/notifier/picked_calendar_date.dart';
+import 'package:kamara_parent_app_ui/notifier/picked_calendar_date_notifier.dart';
 import 'package:kamara_parent_app_ui/notifier/picked_child_id_notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +37,8 @@ class AttendanceFeedbackWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     status() {
-      DateTime dateTime = Provider.of<PickedCalendarDate>(context).dateTime;
+      DateTime dateTime =
+          Provider.of<PickedCalendarDateNotifier>(context).dateTime;
       int id = Provider.of<PickedChildIdNotifier>(context).id;
 
       int year = dateTime.year;

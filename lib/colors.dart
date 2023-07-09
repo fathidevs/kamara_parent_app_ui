@@ -17,11 +17,11 @@ class MyColors {
   static const Color unSelectedItemColor = Colors.grey;
   static const Color hintColor = Colors.red;
 
-  static const Color dissabledBgColr = Color(0xFFDFDFDF);
-  static const Color dissabledTextColr = Colors.grey;
+  static const Color disabledBgColor = Color(0xFFDFDFDF);
+  static const Color disabledTextColor = Colors.grey;
 
   static const Color mastercardColor = Color(0xFFFF5F00);
-  static const Color visacardColor = Color(0xFF1A1F71);
+  static const Color visaCardColor = Color(0xFF1A1F71);
 
   static const Color colorEbirr = Color(0XFF0c8744);
 
